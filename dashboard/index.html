@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Launch Radar</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <div>
+      <h1>Token Launch Radar</h1>
+      <p class="tagline">Pre-token protocols ranked by implied value, with a farm plan for each one.</p>
+    </div>
+    <div class="masthead-meta" id="metaLine"></div>
+  </div>
+</header>
+
+<section class="auditbar" id="auditBar"></section>
+<div class="selfcheck" id="selfCheck"></div>
+
+<nav class="tabs" aria-label="Views">
+  <button type="button" id="tabBoard" class="tab active">Board</button>
+  <button type="button" id="tabMethod" class="tab">Method &amp; evidence</button>
+</nav>
+
+<main id="boardView">
+  <div class="toolbar">
+    <label>Search <input type="search" id="q" placeholder="name or slug" autocomplete="off"></label>
+    <label>Category <select id="catFilter"><option value="">All categories</option></select></label>
+    <label class="check"><input type="checkbox" id="watchOnly"> Watchlist only</label>
+    <label>Sort <select id="sortSel">
+      <option value="rank">Rank</option>
+      <option value="value">Implied value</option>
+      <option value="tvl">TVL</option>
+      <option value="age">Age</option>
+      <option value="growth">7-day change</option>
+    </select></label>
+    <span class="count" id="rowCount"></span>
+  </div>
+
+  <table id="boardTable">
+    <thead><tr>
+      <th data-sort="rank">Rank</th>
+      <th data-sort="name">Protocol</th>
+      <th>Category</th>
+      <th data-sort="tvl">TVL</th>
+      <th data-sort="value">Implied value</th>
+      <th>Value range</th>
+      <th data-sort="age">Age</th>
+      <th data-sort="growth">7d</th>
+      <th>Rank range</th>
+      <th>Net at defaults</th>
+      <th>Break-even</th>
+    </tr></thead>
+    <tbody id="boardBody"></tbody>
+  </table>
+  <p class="footnote">Implied value is this radar's own estimate from the snapshot's figures, not a prediction that a token launches. “Records no token” means the snapshot's record carries none. Net and break-even use the stated defaults: a 0.05% slice of implied value against the estimated farm cost.</p>
+
+  <section id="detail" class="detail" hidden>
+    <div class="detail-head">
+      <h2 id="detailName"></h2>
+      <button type="button" id="detailClose">Close</button>
+    </div>
+    <div class="detail-grid" id="detailStats"></div>
+    <h3>Farm plan</h3>
+    <ol class="steps" id="detailSteps"></ol>
+    <h3>What-if pricing</h3>
+    <div class="whatif">
+      <label>Deposit ($) <input type="number" id="wiDeposit" value="1000" min="0" step="50"></label>
+      <label>Assumed slice (%) <input type="number" id="wiShare" value="0.05" min="0" step="0.01"></label>
+      <button type="button" id="wiGo">Recompute</button>
+    </div>
+    <div class="whatif-out" id="wiOut"></div>
+  </section>
+</main>
+
+<main id="methodView" hidden>
+  <section class="cards" id="methodCards"></section>
+  <section class="method-note">
+    <h2>What this radar does not claim</h2>
+    <p>The snapshot carries no token-launch dates, so the chance a protocol eventually launches cannot be identified from this one cross-section. No launch odds are fitted or shipped. The clock bands below are descriptive counts of the snapshot, and break-even odds are pure arithmetic: estimated cost divided by the assumed slice of implied value.</p>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>Built from one sealed DefiLlama snapshot. Every figure on this page is recomputed from that snapshot by the program that wrote it; the self-check strip above re-verifies the board in your browser.</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
